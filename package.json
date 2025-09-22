@@ -1,0 +1,28 @@
+{
+  "name": "projeto-ds",
+  "version": "1.0.0",
+  "main": "index.js",
+  "packageManager": "npm@10.0.0",
+  "scripts": {
+    "dev": "turbo dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dejardim/Projeto-DS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dejardim/Projeto-DS/issues"
+  },
+  "homepage": "https://github.com/dejardim/Projeto-DS#readme",
+  "description": "",
+  "workspaces": [
+    "apps/web",
+    "apps/server"
+  ],
+  "devDependencies": {
+    "turbo": "^2.5.6"
+  }
+}
