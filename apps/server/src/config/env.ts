@@ -13,7 +13,7 @@ export const ENV = cleanEnv(process.env, {
     CUID_FINGERPRINT: str({ default: '4dCxI3LFvo' }),
     JWT_SECRET: str({ default: 'super-secret' }),
     BCRYPT_SALT_ROUNDS: num({ default: 10 }),
-
+    OPENAI_AI_KEY: str(),
     TURSO_DATABASE_URL: str({ default: 'file:local.db' }),
     TURSO_AUTH_TOKEN: str({ default: undefined }),
 

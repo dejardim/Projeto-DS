@@ -8,7 +8,7 @@
     "prestart": "npm run build",
     "start": "node ./dist/src/index.js",
     "predev": "npm run build && npm run biome:check",
-    "dev": "tsx --watch src/index.ts | pino-pretty",
+    "dev": "tsx --watch src/index.ts",
     "biome:check": "npx @biomejs/biome check --write ./src",
     "db:generate": "npx drizzle-kit generate --name=$npm_config_name",
     "db:seed": "npx drizzle-kit generate --custom --name=$npm_config_name",
@@ -47,6 +47,7 @@
     "jsonwebtoken": "^9.0.2",
     "luxon": "^3.7.2",
     "nodemailer": "^7.0.6",
+    "openai": "^5.22.1",
     "pino": "^9.11.0"
   }
 }
