@@ -2,7 +2,7 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080';
+const API_BASE_URL = 'https://projeto-ds-971346872742.us-west1.run.app';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
