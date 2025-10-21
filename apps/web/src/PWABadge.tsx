@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/a11y/useButtonType: <explanation> */
+/** biome-ignore-all lint/correctness/useUniqueElementIds: <explanation> */
 import './PWABadge.css'
 
 import { useRegisterSW } from 'virtual:pwa-register/react'

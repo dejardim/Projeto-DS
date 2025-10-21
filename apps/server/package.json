@@ -8,7 +8,7 @@
     "prestart": "npm run build",
     "start": "node ./dist/src/index.js",
     "predev": "npm run build && npm run biome:check",
-    "dev": "tsx --watch src/index.ts | pino-pretty",
+    "dev": "tsx --watch src/index.ts",
     "biome:check": "npx @biomejs/biome check --write ./src",
     "db:generate": "npx drizzle-kit generate --name=$npm_config_name",
     "db:seed": "npx drizzle-kit generate --custom --name=$npm_config_name",
