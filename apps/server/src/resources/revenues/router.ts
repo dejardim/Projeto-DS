@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { 
-  RevenuesController, 
-  validateCreateRevenue, 
-  validateUpdateRevenue,
-  validateRevenueParams,
-  validateQueryParams
-} from './controller';
 import { authMiddleware } from '../../middleware/auth';
+import {
+    RevenuesController,
+    validateCreateRevenue,
+    validateQueryParams,
+    validateRevenueParams,
+    validateUpdateRevenue,
+} from './controller';
 
 const router = Router();
 const controller = new RevenuesController();
@@ -16,8 +16,21 @@ router.use(authMiddleware);
 
 router.post('/', validateCreateRevenue, controller.create.bind(controller));
 router.get('/', validateQueryParams, controller.getAll.bind(controller));
-router.get('/:revenueUid', validateRevenueParams, controller.getById.bind(controller));
-router.put('/:revenueUid', validateRevenueParams, validateUpdateRevenue, controller.update.bind(controller));
-router.delete('/:revenueUid', validateRevenueParams, controller.delete.bind(controller));
+router.get(
+    '/:revenueUid',
+    validateRevenueParams,
+    controller.getById.bind(controller),
+);
+router.put(
+    '/:revenueUid',
+    validateRevenueParams,
+    validateUpdateRevenue,
+    controller.update.bind(controller),
+);
+router.delete(
+    '/:revenueUid',
+    validateRevenueParams,
+    controller.delete.bind(controller),
+);
 
 export default router;

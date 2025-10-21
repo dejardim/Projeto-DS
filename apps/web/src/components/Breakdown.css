@@ -1,0 +1,133 @@
+.breakdown-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.breakdown-card h3 {
+  margin: 0 0 1.5rem 0;
+  color: var(--green);
+  font-size: 1.5rem;
+}
+
+.breakdown-table {
+  width: 100%;
+}
+
+.breakdown-header, .breakdown-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--off);
+}
+
+.breakdown-header {
+  font-weight: 600;
+  color: var(--gold);
+}
+
+.planned-row {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.transactions-title {
+  padding: 1.5rem 0.75rem 0.5rem;
+  font-weight: 600;
+  color: var(--green);
+  font-size: 1.1rem;
+}
+
+.transaction-item {
+  display: grid;
+  grid-template-areas:
+    'date payment'
+    'desc summary';
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 1rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--off);
+}
+
+.transaction-item:nth-child(even) {
+  background-color: #f9f9f9; /* Ou var(--off) se preferir */
+}
+
+.transaction-date { grid-area: date; font-size: 0.85rem; color: #666; }
+.transaction-payment { grid-area: payment; font-size: 0.85rem; color: #666; text-align: right; }
+.transaction-desc { grid-area: desc; font-weight: 500; }
+.transaction-summary { grid-area: summary; display: flex; align-items: center; justify-content: flex-end; gap: 1rem; font-weight: 500; }
+.transaction-amount { min-width: 80px; text-align: right; }
+
+.filtered-total-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0.75rem;
+  font-weight: 600;
+  border-top: 1px solid var(--off);
+  margin-top: 0.5rem;
+}
+
+.filters-section {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem 0.75rem 0.5rem;
+  border-top: 1px solid var(--off);
+  margin-top: 1rem;
+}
+
+.filters-section select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--off);
+  background: var(--off);
+  color: var(--green);
+}
+
+.badge {
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.badge.fixed {
+  background-color: #e0e7ff;
+  color: #4338ca;
+}
+
+.badge.variable {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.positive {
+  color: var(--blue);
+}
+
+.negative {
+  color: var(--red);
+}
+
+.category-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--off);
+}
+
+.category-section:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.category-section h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  color: var(--green);
+  font-weight: 600;
+}

@@ -1,0 +1,28 @@
+.add-item-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001; /* Higher than other modals */
+}
+
+.add-item-modal-content {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  color: var(--green);
+}
+
+.add-item-modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  text-align: center;
+}

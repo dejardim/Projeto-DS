@@ -1,0 +1,159 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  color: var(--green);
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--off);
+}
+
+.tabs button {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  background: var(--white);
+  color: var(--green);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.tabs button.active {
+  background: var(--off);
+  font-weight: 600;
+}
+
+.modal-content select {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--off);
+  background: var(--off);
+  color: var(--green);
+  font-size: 1rem;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.checkbox-group {
+  margin-top: 1rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+  height: 18px;
+  width: 18px;
+  accent-color: var(--green);
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.modal-content h4 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--off);
+  padding-bottom: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input, .form-group-inline input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--off);
+  background: var(--off);
+  color: var(--green);
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.expenses-list {
+  max-height: 200px;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.form-group-inline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.form-group-inline label {
+  flex-basis: 60%;
+}
+
+.form-group-inline input {
+  flex-basis: 35%;
+}
+
+.modal-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.modal-actions button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-save {
+  background: var(--green);
+  color: var(--white);
+}
+
+.btn-save:hover {
+  background-color: #254040;
+}
+
+.btn-cancel {
+  background: var(--off);
+  color: var(--green);
+}
+
+.btn-cancel:hover {
+  background: #e0e0e0;
+}

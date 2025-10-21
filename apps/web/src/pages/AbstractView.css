@@ -1,0 +1,49 @@
+.abstract-view {
+  padding: 70px 2rem 2rem; /* Top padding for fixed header */
+  background-color: var(--off);
+  min-height: 100vh;
+  color: var(--green);
+}
+
+.abstract-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.abstract-header h1 {
+  margin: 0;
+}
+
+.back-link {
+  background: var(--green);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.back-link:hover {
+  background-color: #254040;
+}
+
+.spreadsheet-container {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.error-message {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+}

@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/** biome-ignore-all lint/correctness/noUnusedVariables: <explanation> */
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User, LoginResponse } from '../types';
+/** biome-ignore-all lint/correctness/noUnusedVariables: Variables are provided via context value */
+import { type FC, type ReactNode, createContext, useContext, useState, useEffect } from 'react';
+import type { User, LoginResponse } from '../types';
 import { authAPI } from '../services/api';
 
 interface AuthContextType {
@@ -26,7 +25,7 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -37,7 +36,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (token && userData) {
       try {
         setUser(JSON.parse(userData));
-      } catch (error) {
+      } catch {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
       }
@@ -53,7 +52,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.spreadsheet));
       setUser(data.spreadsheet);
-    } catch (error) {
+    } catch {
       throw new Error('Credenciais inválidas');
     }
   };
@@ -66,7 +65,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.spreadsheet));
       setUser(data.spreadsheet);
-    } catch (error) {
+    } catch {
       throw new Error('Erro ao criar conta');
     }
   };

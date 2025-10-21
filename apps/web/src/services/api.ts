@@ -53,6 +53,8 @@ export const spreadsheetsAPI = {
     };
   }) => api.post('/spreadsheets/abstracts', data),
   
+  getAllAbstracts: () => api.get('/spreadsheets/abstracts'),
+
   getAbstract: (mount: number, year: number) =>
     api.get(`/spreadsheets/abstracts/${mount}/${year}`),
   

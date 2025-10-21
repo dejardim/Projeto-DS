@@ -33,12 +33,17 @@ export interface TransactionsResponse {
   };
 }
 
+export interface Budgets {
+  revenue: { planned: number };
+  expenses: { category: string; planned: number }[];
+}
+
 export interface Abstract {
   uid: string;
   name: string;
   mount: number;
   year: number;
-  budgets: string;
+  budgets: Budgets;
   notes: string;
   createdAt: string;
   updatedAt: string;
@@ -94,7 +99,7 @@ export interface Revenue {
   month: number;
   year: number;
   date: number;
-  paymentOption?: string;
+  paymentOption?: { uid: string; name: string } | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -106,8 +111,8 @@ export interface Expense {
   month: number;
   year: number;
   date: number;
-  category?: string;
-  paymentOption?: string;
+  category?: { uid: string; name: string } | null;
+  paymentOption?: { uid: string; name: string } | null;
   fixed: boolean;
   metadata: string;
   createdAt: string;

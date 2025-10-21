@@ -1,77 +1,85 @@
 .login-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-color: var(--off);
   padding: 20px;
 }
 
 .login-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: var(--white);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
   width: 100%;
   max-width: 400px;
+  text-align: center;
+}
+
+.logo-container {
+  margin-bottom: 1rem;
+}
+
+.logo {
+  height: 40px;
 }
 
 .login-card h1 {
-  text-align: center;
+  font-size: 1rem;
+  color: var(--green);
+  font-weight: 400;
   margin-bottom: 2rem;
-  color: #333;
-  font-size: 1.8rem;
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #555;
-  font-weight: 500;
+  margin-bottom: 1rem;
+  text-align: left;
 }
 
 .form-group input {
   width: 100%;
-  padding: 0.75rem;
-  border: 2px solid #e1e5e9;
+  padding: 0.8rem 1rem;
+  border: 1px solid #e0e0e0;
+  background-color: var(--off);
   border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
+  color: var(--green);
+}
+
+.form-group input::placeholder {
+  color: var(--green);
+  opacity: 0.7;
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--gold);
 }
 
 .error-message {
-  background: #fee;
-  color: #c33;
-  padding: 0.75rem;
-  border-radius: 6px;
+  color: var(--red);
   margin-bottom: 1rem;
   font-size: 0.9rem;
 }
 
 .submit-button {
   width: 100%;
-  padding: 0.875rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  padding: 0.8rem;
+  background-color: var(--green);
+  color: var(--white);
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
 }
 
 .submit-button:hover:not(:disabled) {
-  transform: translateY(-1px);
+  background-color: #254040;
 }
 
 .submit-button:disabled {
@@ -79,20 +87,26 @@
   cursor: not-allowed;
 }
 
-.toggle-form {
-  text-align: center;
+.toggle-form-container {
   margin-top: 1.5rem;
+  background-color: var(--white);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
 }
 
 .toggle-button {
   background: none;
   border: none;
-  color: #667eea;
+  color: var(--green);
   cursor: pointer;
   font-size: 0.9rem;
-  text-decoration: underline;
 }
 
-.toggle-button:hover {
-  color: #764ba2;
+.toggle-button strong {
+  color: var(--gold);
+  text-decoration: underline;
 }
