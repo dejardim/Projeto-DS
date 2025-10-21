@@ -1,0 +1,693 @@
+/* =========================
+   BASE E RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+:root {
+  --green: #2F4F4F;
+  --gold: #DAA520;
+  --off: #FAEBD7;
+  --red: #6B2929;
+  --light: #F7F7F7;
+  --white: #FFFFFF;
+  --header-h: 50px;
+  --container: 955px;
+}
+
+/* =========================
+   RESTANTE DO CSS...
+========================= */
+body {
+  background-color: #FFFFFF;
+  color: var(--green);
+  overflow-x: hidden;
+}
+
+/* =========================
+   HEADER PRINCIPAL
+========================= */
+.main-header {
+  height: 50px;
+  width: 100%;
+  background-color: #2F4F4F;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.logo-img {
+  height: 30px;
+  width: auto;
+}
+
+/* Botões principais */
+.nav-buttons{ display:flex; gap:20px; }
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: #FAEBD7;
+  font-size: 20px;     
+  font-weight: 600;
+  padding: 4px 14px;   
+  border-radius: 6px;  
+  cursor: pointer;
+  position: relative;
+  transition: .2s;
+}
+
+/* Estado ativo fixo do Dashboard */
+#btn-dashboard{
+  background:#DAA520;
+
+}
+
+#btn-dashboard::after,
+#btn-chat.active::after{
+  content:"";
+  position:absolute;
+  bottom:5px;
+  left:50%;
+  transform:translateX(-50%);
+  width:20px;
+  height:2px;
+  background:#FAEBD7;
+  border-radius:2px;
+}
+
+#btn-chat.active{
+  background:#DAA520;
+  color:#FAEBD7;
+}
+
+.user-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.settings-icon {
+  width: 25px;
+  height: auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #FAEBD7;
+}
+
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.screen.hidden {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* =========================================================
+   WRAPPER DAS TELAS - CORRIGE CORTES NA TRANSIÇÃO
+========================================================= */
+#screens {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Cada tela ocupa toda a área visível abaixo do header */
+#screens .screen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* =========================
+   HEADER SECUNDÁRIA
+========================= */
+#dashboard-icon {
+  width: 24px;  
+  height: auto;  
+  object-fit: contain;    
+  vertical-align: middle;
+}
+
+.secondary-header {
+  margin-top: 0px;
+  height: 40px;
+  width: 100%;
+  background-color: #FAEBD7;
+  display: flex;
+  align-items: center;
+  padding-left: 50px;
+  gap: 10px;
+}
+
+.secondary-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2F4F4F;
+}
+
+/* =========================================================
+   BLOCO PRINCIPAL DO DASHBOARD
+========================================================= */
+.dashboard-main {
+  width: var(--container);
+  margin: 28px auto 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* =========================================================
+   BLOCO 1 - SAUDAÇÃO / SALDO / RECEITA
+========================================================= */
+.dashboard-top {
+  display: grid;
+  grid-template-columns: 200px 300px 300px;
+  column-gap: 55px;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* Saudação */
+.greeting-area {
+  width: 200px;
+  min-height: 98px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#user-icon {
+  width: 52px;
+  height: 52px;
+}
+
+.user-info h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--green);
+}
+
+.add-section h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--green);
+}
+
+/* Container dos botões */
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+/* Botões "Despesa" e "Receita" */
+.btn-expense,
+.btn-income {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; 
+  border: none;
+  border-radius: 4px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--off);
+  padding: 5px 12px;
+}
+
+.btn-expense {
+  background: var(--red);
+  width: 112px;
+  height: 28px;
+}
+
+.btn-income {
+  background: var(--green);
+  width: 98px;
+  height: 28px;
+}
+
+/* Ícones dentro dos botões */
+.btn-icon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+
+/* Cards (Saldo e Receita) */
+.balance-card,
+.income-card {
+  width: 315px;
+  height: 120px;
+  background: var(--off);
+  border-radius: 14px;
+  padding: 0 21px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.balance-card h3,
+.income-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--green);
+}
+
+.balance-value,
+.income-value {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.value {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--green);
+  line-height: 1;
+}
+
+.balance-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 4px;
+  color: var(--green);
+}
+
+#status-icon {
+  width: 21px;
+  height: 14px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle; 
+}
+
+.income-status {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+#status-icon-receita {
+  width: 21px;
+  height: 14px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* =========================================================
+   BLOCO 2 - DESPESAS FIXAS / VARIÁVEIS
+========================================================= */
+.dashboard-middle {
+  display: grid;
+  grid-template-columns: 452px 452px;
+  column-gap: 22px;
+  width: 100%;
+}
+
+.section-header {
+  height: 52px;
+  background: var(--off);
+  border-radius: 14px 14px 0 0;
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+}
+
+.section-header h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.section-body {
+  height: 160px;
+  background: var(--light);
+  border-radius: 0 0 14px 14px;
+  padding: 14px 21px; 
+}
+
+.section-body table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.section-body th {
+  text-align: left;
+  font-size: 14px; 
+  font-weight: 600;
+  color: #000;
+  padding-bottom: 7px;
+}
+
+.section-body td {
+  text-align: left;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--green);
+  padding-bottom: 7px;
+}
+
+/* =========================================================
+   BLOCO 3 - METAS
+========================================================= */
+.dashboard-bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px; 
+}
+
+.dashboard-bottom h3 {
+  font-size: 25px; 
+  font-weight: 700;
+  color: var(--green);
+}
+
+.goal-card {
+  width: 452px;
+  height: 126px; 
+  background: var(--off);
+  border-radius: 14px;
+  padding: 14px 21px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.goal-header h4 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.goal-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px; 
+  font-weight: 600;
+}
+
+.progress-bar {
+  width: 420px;
+  height: 18px;
+  background: var(--white);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: var(--green);
+  height: 100%;
+  border-radius: 14px;
+}
+
+.progress-text {
+  text-align: center;
+  font-size: 11px; 
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.monthly-goal {
+  font-size: 11px; 
+  font-weight: 600;
+  opacity: 0.7;
+  color: var(--green);
+}
+
+/* =========================
+   CHAT + DASHBOARD SCREEN
+========================= */
+.screen.hidden {
+  display: none;
+}
+
+/* Container da dupla coluna */
+.chat-dashboard-container {
+  display: flex;
+  gap: 26px;
+  padding: 0 25px 25px 25px;  
+  height: 100%;
+  width: 100%;
+  background-color: #2F4F4F;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.chat-block,
+.dashboard-block {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.chat-block {
+  flex: 0 0 480px;
+}
+
+
+/* Headers internas não crescem */
+.chat-header,
+.dashboard-subheader {
+  flex: 0 0 40px; 
+  margin-top: 0;
+}
+
+.chat-header {
+  background-color: #FAEBD7;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+}
+
+.chat-icon {
+  width: 24px;
+  height: auto;
+  object-fit: contain;
+}
+
+.chat-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2F4F4F;
+}
+
+/* Áreas que rolam por dentro */
+.chat-body,
+.dashboard-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.chat-body {
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-y: auto;
+  gap: 8px;
+  padding: 20px;
+}
+
+.chat-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* padrão: mensagens começam à esquerda */
+  gap: 8px;
+}
+
+/* DIFERENCIAÇÃO DE MENSAGENS */
+
+/* Mensagem do usuário (lado direito) */
+.chat-message.user {
+  background-color: var(--gold);
+  color: var(--off);
+  align-self: flex-end;
+  max-width: 75%;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+/* Mensagem do assistente (lado esquerdo) */
+.chat-message.assistant {
+  background-color: #F0F0F0;
+  color: var(--green);
+  align-self: flex-start;
+  max-width: 75%;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+/* Espaçamento e sombra leve */
+.chat-message {
+  line-height: 1.4;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  word-wrap: break-word;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+}
+
+
+.chat-footer {
+  flex: 0 0 60px;     
+  background-color: #FAEBD7;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+.chat-footer input {
+  width: 85%;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.chat-footer button {
+  width: 40px;
+  height: 40px;
+  background-color: #DAA520;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+
+  display: flex;            
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ícone dentro do botão de envio */
+.chat-footer button img {
+  width: 25px;  
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* Dashboard no modo Chat + Dashboard */
+.dashboard-block {
+  flex: 1 1 auto;
+}
+
+.dashboard-subheader {
+  height: 60px;
+  background-color: #FAEBD7;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  gap: 10px;
+}
+
+/* Ícone do Dashboard dentro do Chat+Dashboard Screen */
+.dashboard-icon {
+  width: 24px; 
+  height: auto;
+  object-fit: contain;
+}
+
+.dashboard-subheader h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2F4F4F;
+}
+
+.dashboard-body {
+  background-color: #FFFFFF;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+/* Ajuste da margem do dashboard apenas dentro do chat-dashboard-screen */
+#chat-dashboard-screen .dashboard-main {
+  height: calc(100vh - var(--header-h));
+  display: flex;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+/* =========================
+   FADE + SLIDE TRANSITIONS
+========================= */
+.fade-in        { animation: fadeIn 300ms cubic-bezier(.2,.8,.2,1) both; }
+.fade-out       { animation: fadeOut 300ms cubic-bezier(.2,.8,.2,1) both; }
+.slide-in-left  { animation: slideInLeft 300ms cubic-bezier(.2,.8,.2,1) both; }
+.slide-in-right { animation: slideInRight 300ms cubic-bezier(.2,.8,.2,1) both; }
+.slide-out-left { animation: slideOutLeft 300ms cubic-bezier(.2,.8,.2,1) both; }
+.slide-out-right{ animation: slideOutRight 300ms cubic-bezier(.2,.8,.2,1) both; }
+
+@keyframes fadeIn   { from { opacity:0; transform: translate3d(0, 10px, 0); } to { opacity:1; transform: translate3d(0, 0, 0); } }
+@keyframes fadeOut  { from { opacity:1; transform: translate3d(0, 0, 0); } to { opacity:0; transform: translate3d(0, 10px, 0); } }
+
+@keyframes slideInLeft   { from { opacity:0; transform: translate3d(-24px,0,0); } to { opacity:1; transform: translate3d(0,0,0); } }
+@keyframes slideInRight  { from { opacity:0; transform: translate3d( 24px,0,0); } to { opacity:1; transform: translate3d(0,0,0); } }
+@keyframes slideOutLeft  { from { opacity:1; transform: translate3d(0,0,0); }    to { opacity:0; transform: translate3d(-24px,0,0); } }
+@keyframes slideOutRight { from { opacity:1; transform: translate3d(0,0,0); }    to { opacity:0; transform: translate3d( 24px,0,0); } }

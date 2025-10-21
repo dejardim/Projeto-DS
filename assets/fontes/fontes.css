@@ -1,0 +1,22 @@
+/* /assets/fontes/fontes.css */
+
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/assets/fontes/NunitoSans-Regular.ttf') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/assets/fontes/NunitoSans-SemiBold.ttf') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url('/assets/fontes/NunitoSans-Bold.ttf');
+    font-weight: 700;
+    font-style: normal;
+}

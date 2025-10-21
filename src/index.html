@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Numo - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="../assets/fontes/fontes.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER PRINCIPAL -->
+  <header class="main-header">
+    <div class="logo-area">
+      <img src="../assets/imagens/logo_numo.webp" alt="Logo Numo" class="logo-img">
+    </div>
+
+    <nav class="nav-buttons">
+      <button id="btn-chat" class="nav-btn">Chat</button>
+      <button id="btn-dashboard" class="nav-btn active">Dashboard</button>
+    </nav>
+
+    <div class="user-controls">
+      <img src="../assets/imagens/icone-configuracoes.png" alt="Configurações" class="settings-icon">
+      <span class="user-name">User</span>
+      <img src="../assets/imagens/avatar.png" alt="Avatar" class="user-avatar">
+    </div>
+  </header>
+
+  <!-- WRAPPER DAS TELAS (necessário para esconder bordas na transição) -->
+  <div id="screens">
+
+    <!-- DASHBOARD SCREEN -->
+    <section id="dashboard-screen" class="screen active">
+      <div class="secondary-header dashboard-header">
+        <img src="/assets/imagens/icone_dashboard.png" alt="Ícone dashboard" id="dashboard-icon">
+        <h1>Dashboard</h1>
+      </div>
+
+      <!-- BLOCO PRINCIPAL CENTRALIZADO -->
+      <main class="dashboard-main">
+
+        <!-- BLOCO 1: Saudação + Saldo + Receita -->
+        <div class="dashboard-top">
+          <div class="greeting-area">
+            <div class="user-info">
+              <img src="/assets/imagens/avatar.png" alt="Avatar" id="user-icon">
+              <h2>Olá, <span id="user-name">User</span>!</h2>
+            </div>
+            <div class="add-section">
+              <h3>Adicionar</h3>
+              <div class="buttons">
+                <button class="btn-expense">
+                  <img src="/assets/imagens/seta_para_cima.png" alt="Seta para cima" class="btn-icon">
+                  Despesa
+                </button>
+                <button class="btn-income">
+                  <img src="/assets/imagens/seta_para_baixo.png" alt="Seta para baixo" class="btn-icon">
+                  Receita
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="balance-card">
+            <h3>Saldo do Mês</h3>
+            <div class="balance-value">
+              <p class="value" id="saldo-mes">R$1.200,00</p>
+            </div>
+            <div class="balance-status">
+              <img id="status-icon" src="/assets/imagens/saldo_positivo.png" alt="Status">
+              <p id="saldo-status">Saldo Positivo</p>
+            </div>
+          </div>
+
+          <div class="income-card">
+            <h3>Receita do Mês</h3>
+            <div class="income-value">
+              <p class="value" id="receita-mes">R$3.000,00</p>
+            </div>
+            <div class="income-status">
+              <img id="status-icon-receita" src="/assets/imagens/saldo_positivo.png" alt="Status Receita">
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOCO 2: Despesas Fixas + Variáveis -->
+        <div class="dashboard-middle">
+          <div class="fixed-expenses">
+            <div class="section-header">
+              <h3>Despesas Fixas</h3>
+            </div>
+            <div class="section-body">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Despesas</th>
+                    <th>Valor</th>
+                    <th>Situação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Aluguel</td><td>R$950,00</td><td>Paga</td></tr>
+                  <tr><td>Alimentação</td><td>R$700,00</td><td>Paga</td></tr>
+                  <tr><td>Internet</td><td>R$50,00</td><td>Paga</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="variable-expenses">
+            <div class="section-header">
+              <h3>Despesas Variáveis</h3>
+            </div>
+            <div class="section-body">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Despesas</th>
+                    <th>Data</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Cinema</td><td>20/09</td><td>R$100,00</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOCO 3: Metas -->
+        <div class="dashboard-bottom">
+          <h3>Metas</h3>
+          <div class="goal-card">
+            <div class="goal-header"><h4>Celular novo</h4></div>
+            <div class="goal-progress">
+              <div class="goal-values">
+                <span class="current">R$600,00</span>
+                <span class="target">R$3.000,00</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: 20%;"></div>
+              </div>
+              <p class="progress-text">20% concluído</p>
+              <p class="monthly-goal">Meta mensal: R$300,00</p>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </section>
+
+    <!-- CHAT + DASHBOARD SCREEN -->
+    <section id="chat-dashboard-screen" class="screen hidden">
+      <div class="chat-dashboard-container">
+
+        <!-- BLOCO CHAT -->
+        <div class="chat-block">
+          <div class="chat-header">
+            <img src="/assets/imagens/icone_chat.png" alt="Ícone Chat" class="chat-icon">
+            <h1>Chat</h1>
+          </div>
+
+          <div class="chat-body" id="chat-body">
+            <div class="chat-message assistant">
+              Olá! Sou seu assistente financeiro. Digite seus gastos naturalmente (ex: "gastei 50 no mercado") ou use comandos como /ajuda.
+            </div>
+          </div>
+
+          <div class="chat-footer">
+            <input type="text" placeholder="Digite algo..." id="chat-input">
+            <button id="chat-send"><img src="/assets/imagens/icone_envio_chat.webp" alt="Ícone envio chat"></button>
+          </div>
+        </div>
+
+        <!-- BLOCO DASHBOARD -->
+        <div class="dashboard-block">
+          <div class="dashboard-subheader">
+            <img src="/assets/imagens/icone_dashboard.png" alt="Ícone Dashboard" class="dashboard-icon">
+            <h1>Dashboard</h1>
+          </div>
+
+          <div class="dashboard-body">
+            <!-- Aqui o clone será injetado -->
+            <div id="dashboard-body-clone" style="min-height: 100%;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div> <!-- /#screens -->
+
+  <script src="script.js"></script>
+</body>
+</html>
