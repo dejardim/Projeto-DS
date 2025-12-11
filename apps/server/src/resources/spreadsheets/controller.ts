@@ -129,7 +129,8 @@ export class SpreadsheetsController {
                 return res.status(401).json({ error: 'Unauthorized' });
             }
             const spreadsheetUid = req.user.uid;
-            const result = await spreadsheetsService.getAllAbstracts(spreadsheetUid);
+            const result =
+                await spreadsheetsService.getAllAbstracts(spreadsheetUid);
             res.json(result);
         } catch (error) {
             console.log(error);

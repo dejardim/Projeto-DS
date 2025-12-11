@@ -14,9 +14,9 @@ export default defineConfig({
     },
 
     manifest: {
-      name: 'web',
-      short_name: 'web',
-      description: 'web',
+      name: 'Numo',
+      short_name: 'Numo',
+      description: 'Numo',
       theme_color: '#ffffff',
     },
 

@@ -2,7 +2,7 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 import axios from 'axios';
 
-const API_BASE_URL = 'https://projeto-ds-971346872742.us-west1.run.app';
+const API_BASE_URL = 'http://localhost:8080';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -131,4 +131,9 @@ export const paymentOptionsAPI = {
   getById: (id: string) => api.get(`/payment-options/${id}`),
   update: (id: string, data: { name: string }) => api.put(`/payment-options/${id}`, data),
   delete: (id: string) => api.delete(`/payment-options/${id}`),
+};
+
+// NumoChat API
+export const numoChatAPI = {
+  processCommand: (command: string) => api.post('/api/numochat', { command }),
 };

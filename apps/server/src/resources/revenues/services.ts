@@ -57,10 +57,13 @@ export class RevenuesService {
                 paymentOption: {
                     uid: PaymentOptionsTable.uid,
                     name: PaymentOptionsTable.name,
-                }
+                },
             })
             .from(RevenueTable)
-            .leftJoin(PaymentOptionsTable, eq(RevenueTable.paymentOption, PaymentOptionsTable.uid))
+            .leftJoin(
+                PaymentOptionsTable,
+                eq(RevenueTable.paymentOption, PaymentOptionsTable.uid),
+            )
             .where(and(...conditions));
 
         return revenues;

@@ -24,7 +24,11 @@ router.post(
     controller.createAbstract.bind(controller),
 );
 
-router.get('/abstracts', authMiddleware, controller.getAllAbstracts.bind(controller));
+router.get(
+    '/abstracts',
+    authMiddleware,
+    controller.getAllAbstracts.bind(controller),
+);
 router.get(
     '/abstracts/:mount/:year',
     authMiddleware,

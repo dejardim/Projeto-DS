@@ -8,6 +8,7 @@ import { Plus, FileText, Settings } from 'lucide-react';
 import { CreateAbstractModal } from '../components/CreateAbstractModal';
 import { AddItemModal } from '../components/AddItemModal';
 import { AddTransactionModal } from '../components/AddTransactionModal';
+import { NumoChat } from '../components/NumoChat';
 import './Dashboard.css';
 
 const Dashboard: FC = () => {
@@ -288,6 +289,8 @@ const Dashboard: FC = () => {
           onSave={handleSaveTransaction}
         />
       )}
+
+      <NumoChat />
     </div>
   );
 };

@@ -34,6 +34,16 @@ export interface CreateAbstractData {
     };
 }
 
+interface PeriodData {
+    revenues: (typeof RevenueTable.$inferSelect)[];
+    expenses: (typeof ExpenseTable.$inferSelect)[];
+}
+
+interface PeriodTotals {
+    totalRevenue: number;
+    totalExpenses: number;
+}
+
 export class SpreadsheetsService {
     async signup(data: CreateSpreadsheetData) {
         const hashedPassword = await bcrypt.hash(data.password, 10);
@@ -140,7 +150,51 @@ export class SpreadsheetsService {
         }));
     }
 
+    /**
+     * Gets abstract with calculated analytics for a specific month/year.
+     * Refactored using Extract Method pattern for better readability and testability.
+     */
     async getAbstractWithAnalytics(
+        spreadsheetUid: string,
+        mount: number,
+        year: number,
+    ) {
+        // Fetch abstract data
+        const abstract = await this._fetchAbstract(spreadsheetUid, mount, year);
+
+        // Fetch and calculate current period data
+        const currentPeriod = await this._fetchPeriodData(
+            spreadsheetUid,
+            mount,
+            year,
+        );
+        const currentTotals = this._calculateTotals(currentPeriod);
+
+        // Fetch and calculate previous period data for trends
+        const { prevMonth, prevYear } = this._getPreviousPeriod(mount, year);
+        const previousPeriod = await this._fetchPeriodData(
+            spreadsheetUid,
+            prevMonth,
+            prevYear,
+        );
+        const previousTotals = this._calculateTotals(previousPeriod);
+
+        // Parse budgets and build response
+        const budgets = JSON.parse(abstract.budgets as string);
+
+        return this._buildAnalyticsResponse(
+            abstract,
+            budgets,
+            currentTotals,
+            previousTotals,
+            mount,
+        );
+    }
+
+    /**
+     * Fetches abstract for a specific month/year.
+     */
+    private async _fetchAbstract(
         spreadsheetUid: string,
         mount: number,
         year: number,
@@ -161,14 +215,24 @@ export class SpreadsheetsService {
             throw new Error('Abstract not found');
         }
 
-        // Get actual revenues and expenses for the period
+        return abstract;
+    }
+
+    /**
+     * Fetches revenues and expenses for a specific period.
+     */
+    private async _fetchPeriodData(
+        spreadsheetUid: string,
+        month: number,
+        year: number,
+    ): Promise<PeriodData> {
         const revenues = await db
             .select()
             .from(RevenueTable)
             .where(
                 and(
                     eq(RevenueTable.spreadsheet, spreadsheetUid),
-                    eq(RevenueTable.month, mount),
+                    eq(RevenueTable.month, month),
                     eq(RevenueTable.year, year),
                 ),
             );
@@ -179,93 +243,90 @@ export class SpreadsheetsService {
             .where(
                 and(
                     eq(ExpenseTable.spreadsheet, spreadsheetUid),
-                    eq(ExpenseTable.month, mount),
+                    eq(ExpenseTable.month, month),
                     eq(ExpenseTable.year, year),
                 ),
             );
 
-        // Calculate totals
-        const totalRevenue = revenues.reduce((sum, r) => sum + r.amount, 0);
-        const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
+        return { revenues, expenses };
+    }
 
-        // Get previous month data for trends
-        const prevMonth = mount === 1 ? 12 : mount - 1;
-        const prevYear = mount === 1 ? year - 1 : year;
+    /**
+     * Calculates totals from period data.
+     */
+    private _calculateTotals(data: PeriodData): PeriodTotals {
+        return {
+            totalRevenue: data.revenues.reduce((sum, r) => sum + r.amount, 0),
+            totalExpenses: data.expenses.reduce((sum, e) => sum + e.amount, 0),
+        };
+    }
 
-        const prevRevenues = await db
-            .select()
-            .from(RevenueTable)
-            .where(
-                and(
-                    eq(RevenueTable.spreadsheet, spreadsheetUid),
-                    eq(RevenueTable.month, prevMonth),
-                    eq(RevenueTable.year, prevYear),
-                ),
-            );
+    /**
+     * Calculates the previous period (month/year).
+     */
+    private _getPreviousPeriod(mount: number, year: number) {
+        return {
+            prevMonth: mount === 1 ? 12 : mount - 1,
+            prevYear: mount === 1 ? year - 1 : year,
+        };
+    }
 
-        const prevExpenses = await db
-            .select()
-            .from(ExpenseTable)
-            .where(
-                and(
-                    eq(ExpenseTable.spreadsheet, spreadsheetUid),
-                    eq(ExpenseTable.month, prevMonth),
-                    eq(ExpenseTable.year, prevYear),
-                ),
-            );
-
-        const prevTotalRevenue = prevRevenues.reduce(
-            (sum, r) => sum + r.amount,
+    /**
+     * Builds the analytics response object.
+     */
+    private _buildAnalyticsResponse(
+        abstract: typeof AbstractsTable.$inferSelect,
+        budgets: {
+            revenue: { planned: number };
+            expenses: { planned: number }[];
+        },
+        current: PeriodTotals,
+        previous: PeriodTotals,
+        currentMonth: number,
+    ) {
+        const plannedExpenses = budgets.expenses.reduce(
+            (sum: number, e: { planned: number }) => sum + e.planned,
             0,
         );
-        const prevTotalExpenses = prevExpenses.reduce(
-            (sum, e) => sum + e.amount,
-            0,
-        );
-
-        // Calculate trends
-        const revenueTrend = this.calculateTrend(
-            totalRevenue,
-            prevTotalRevenue,
-        );
-        const expenseTrend = this.calculateTrend(
-            totalExpenses,
-            prevTotalExpenses,
-        );
-
-        const budgets = JSON.parse(abstract.budgets as string);
 
         return {
-            abstract: { ...abstract, budgets: JSON.parse(abstract.budgets as string) },
+            abstract: {
+                ...abstract,
+                budgets,
+            },
             analytics: {
                 actual: {
-                    revenue: totalRevenue,
-                    expenses: totalExpenses,
-                    balance: totalRevenue - totalExpenses,
+                    revenue: current.totalRevenue,
+                    expenses: current.totalExpenses,
+                    balance: current.totalRevenue - current.totalExpenses,
                 },
                 planned: {
                     revenue: budgets.revenue.planned,
-                    expenses: budgets.expenses.reduce(
-                        (sum: number, e: any) => sum + e.planned,
-                        0,
-                    ),
+                    expenses: plannedExpenses,
                 },
                 variance: {
-                    revenue: totalRevenue - budgets.revenue.planned,
-                    expenses:
-                        totalExpenses -
-                        budgets.expenses.reduce(
-                            (sum: number, e: any) => sum + e.planned,
-                            0,
-                        ),
+                    revenue: current.totalRevenue - budgets.revenue.planned,
+                    expenses: current.totalExpenses - plannedExpenses,
                 },
                 trends: {
-                    revenue: revenueTrend,
-                    expenses: expenseTrend,
+                    revenue: this.calculateTrend(
+                        current.totalRevenue,
+                        previous.totalRevenue,
+                    ),
+                    expenses: this.calculateTrend(
+                        current.totalExpenses,
+                        previous.totalExpenses,
+                    ),
                 },
                 projections: {
-                    revenue: this.calculateProjection(totalRevenue, mount),
-                    expenses: this.calculateProjection(totalExpenses, mount),
+                    revenue: this.calculateProjection(
+                        current.totalRevenue,
+                        currentMonth,
+                    ),
+                    expenses: this.calculateProjection(
+                        current.totalExpenses,
+                        currentMonth,
+                    ),
                 },
             },
         };

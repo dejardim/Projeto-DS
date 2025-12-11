@@ -1,6 +1,7 @@
 import type express from 'express';
 import categoriesRouter from './resources/categories/router';
 import expensesRouter from './resources/expenses/router';
+import numoChatRouter from './resources/numochat/router';
 import paymentOptionsRouter from './resources/payment-options/router';
 import revenuesRouter from './resources/revenues/router';
 import spreadsheetsRouter from './resources/spreadsheets/router';
@@ -16,6 +17,9 @@ export default function routes(app: express.Application) {
     // Configuration routes
     app.use('/categories', categoriesRouter);
     app.use('/payment-options', paymentOptionsRouter);
+
+    // AI assistant route
+    app.use('/api/numochat', numoChatRouter);
 
     // Health check
     app.get('/health', (req, res) => {

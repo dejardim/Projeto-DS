@@ -1,7 +1,11 @@
 import { createId } from '@paralleldrive/cuid2';
 import { and, eq } from 'drizzle-orm';
 import { db } from '../../database/connection';
-import { ExpenseCategoryTable, ExpenseTable, PaymentOptionsTable } from '../../database/schema';
+import {
+    ExpenseCategoryTable,
+    ExpenseTable,
+    PaymentOptionsTable,
+} from '../../database/schema';
 
 export interface CreateExpenseData {
     category?: string;
@@ -77,11 +81,17 @@ export class ExpensesService {
                 paymentOption: {
                     uid: PaymentOptionsTable.uid,
                     name: PaymentOptionsTable.name,
-                }
+                },
             })
             .from(ExpenseTable)
-            .leftJoin(ExpenseCategoryTable, eq(ExpenseTable.category, ExpenseCategoryTable.uid))
-            .leftJoin(PaymentOptionsTable, eq(ExpenseTable.paymentOption, PaymentOptionsTable.uid))
+            .leftJoin(
+                ExpenseCategoryTable,
+                eq(ExpenseTable.category, ExpenseCategoryTable.uid),
+            )
+            .leftJoin(
+                PaymentOptionsTable,
+                eq(ExpenseTable.paymentOption, PaymentOptionsTable.uid),
+            )
             .where(and(...conditions));
 
         return expenses;

@@ -1,5 +1,10 @@
 import type { Request, Response } from 'express';
-import { body, param, validationResult } from 'express-validator';
+import { body, param } from 'express-validator';
+import {
+    type ValidatedRequest,
+    withAuth,
+    withValidation,
+} from '../../utils/request-handler';
 import { CategoriesService } from './services';
 
 const categoriesService = new CategoriesService();
@@ -17,42 +22,37 @@ export const validateCategoryParams = [
 ];
 
 export class CategoriesController {
-    async create(req: Request, res: Response) {
-        try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-
-            const spreadsheetUid = (req as any).user.uid;
+    create = withValidation(
+        async (
+            req: Request,
+            res: Response,
+            { spreadsheetUid }: ValidatedRequest,
+        ) => {
             const result = await categoriesService.create(
                 spreadsheetUid,
                 req.body,
             );
             res.status(201).json(result);
-        } catch (error) {
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    }
+        },
+    );
 
-    async getAll(req: Request, res: Response) {
-        try {
-            const spreadsheetUid = (req as any).user.uid;
+    getAll = withAuth(
+        async (
+            _req: Request,
+            res: Response,
+            { spreadsheetUid }: ValidatedRequest,
+        ) => {
             const result = await categoriesService.getAll(spreadsheetUid);
             res.json(result);
-        } catch (error) {
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    }
+        },
+    );
 
-    async getById(req: Request, res: Response) {
-        try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-
-            const spreadsheetUid = (req as any).user.uid;
+    getById = withValidation(
+        async (
+            req: Request,
+            res: Response,
+            { spreadsheetUid }: ValidatedRequest,
+        ) => {
             const { categoryUid } = req.params;
 
             const result = await categoriesService.getById(
@@ -65,19 +65,15 @@ export class CategoriesController {
             }
 
             res.json(result);
-        } catch (error) {
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    }
+        },
+    );
 
-    async update(req: Request, res: Response) {
-        try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-
-            const spreadsheetUid = (req as any).user.uid;
+    update = withValidation(
+        async (
+            req: Request,
+            res: Response,
+            { spreadsheetUid }: ValidatedRequest,
+        ) => {
             const { categoryUid } = req.params;
 
             const result = await categoriesService.update(
@@ -91,19 +87,15 @@ export class CategoriesController {
             }
 
             res.json(result);
-        } catch (error) {
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    }
+        },
+    );
 
-    async delete(req: Request, res: Response) {
-        try {
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-
-            const spreadsheetUid = (req as any).user.uid;
+    delete = withValidation(
+        async (
+            req: Request,
+            res: Response,
+            { spreadsheetUid }: ValidatedRequest,
+        ) => {
             const { categoryUid } = req.params;
 
             const result = await categoriesService.delete(
@@ -116,8 +108,6 @@ export class CategoriesController {
             }
 
             res.json({ message: 'Category deleted successfully' });
-        } catch (error) {
-            res.status(500).json({ error: 'Internal server error' });
-        }
-    }
+        },
+    );
 }
