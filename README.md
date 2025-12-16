@@ -188,6 +188,112 @@ NODE_ENV="development"
 - **Frontend**: 5173
 - **Drizzle Studio**: 4000
 
+## 🏗️ Build e Deploy
+
+### Build Local
+
+#### Build Completo (Ambos os Apps)
+```bash
+# Build do servidor
+cd apps/server
+npm run build
+
+# Build do frontend
+cd apps/web
+npm run build
+```
+
+#### Preview do Frontend
+```bash
+cd apps/web
+npm run preview  # Acesse http://localhost:4173
+```
+
+### Build com Docker
+
+#### Backend (Server)
+```bash
+cd apps/server
+
+# Build da imagem
+docker build -t projeto-ds-server .
+
+# Executar container
+docker run -p 8080:8080 \
+  -e NODE_ENV=production \
+  -e TURSO_DATABASE_URL=your-database-url \
+  -e TURSO_AUTH_TOKEN=your-auth-token \
+  -e OPENAI_API_KEY=your-openai-key \
+  -e JWT_SECRET=your-jwt-secret \
+  projeto-ds-server
+```
+
+#### Frontend (Web)
+```bash
+cd apps/web
+
+# Build da imagem
+docker build -t projeto-ds-web .
+
+# Executar container
+docker run -p 8080:8080 projeto-ds-web
+```
+
+### Deploy para Google Cloud Run
+
+#### Pré-requisitos
+- Google Cloud CLI instalado e configurado
+- Projeto no Google Cloud com Cloud Run habilitado
+
+#### Deploy do Backend
+```bash
+cd apps/server
+
+# Build e push para Container Registry
+gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/projeto-ds-server
+
+# Deploy no Cloud Run
+gcloud run deploy projeto-ds-server \
+  --image gcr.io/YOUR_PROJECT_ID/projeto-ds-server \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated \
+  --set-env-vars NODE_ENV=production \
+  --set-env-vars TURSO_DATABASE_URL=your-database-url \
+  --set-env-vars TURSO_AUTH_TOKEN=your-auth-token \
+  --set-env-vars OPENAI_API_KEY=your-openai-key \
+  --set-env-vars JWT_SECRET=your-jwt-secret
+```
+
+#### Deploy do Frontend
+```bash
+cd apps/web
+
+# Build e push para Container Registry
+gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/projeto-ds-web
+
+# Deploy no Cloud Run
+gcloud run deploy projeto-ds-web \
+  --image gcr.io/YOUR_PROJECT_ID/projeto-ds-web \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated
+```
+
+### Variáveis de Ambiente de Produção
+
+#### Backend
+| Variável | Descrição |
+|----------|-----------|
+| `NODE_ENV` | Ambiente (`production` ou `development`) |
+| `TURSO_DATABASE_URL` | URL do banco de dados Turso |
+| `TURSO_AUTH_TOKEN` | Token de autenticação do Turso |
+| `OPENAI_API_KEY` | Chave da API OpenAI |
+| `JWT_SECRET` | Segredo para tokens JWT |
+
+#### Frontend
+O frontend não requer variáveis de ambiente em produção. A URL da API é configurada no build.
+
 ## 🤝 Contribuindo
 
 1. Leia o [CONTRIBUTING.md](./CONTRIBUTING.md)
